@@ -4,7 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageButton;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -23,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView.Adapter adapter;
     RecyclerView.LayoutManager layoutManager;
     List<Ayah> ayahArrayList = new ArrayList<>();
+    ImageButton githubButton;
 
     public void readExcelFile() throws IOException {
         BufferedReader bReader;
@@ -64,27 +69,37 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // read excel file
         try {
             readExcelFile();
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // setup github website button
+        githubButton = findViewById(R.id.githubImgBtn);
+
+        // setup image
+        githubButton.setImageResource(R.drawable.icons8_github);
+
+        // add click listener to github button, that'll redirect to github website
+        githubButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/mohdanss/RecyclerViewQuranApp.git"));
+                startActivity(intent);
+            }
+        });
+
         recyclerView = findViewById(R.id.recylerViewAyahs);
-
-
         recyclerView.setHasFixedSize(true);
-
-        //LinearLayoutManager GridLayoutManager
         layoutManager = new LinearLayoutManager(MainActivity.this);
         recyclerView.setLayoutManager(layoutManager);
-
         adapter = new myRecyclerViewAdapter(ayahArrayList) ;
         recyclerView.setAdapter(adapter);
-        //adapter.notifyDataSetChanged();
-
 
     }
 }
