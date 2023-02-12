@@ -6,7 +6,7 @@ android {
     compileSdk 33
 
     defaultConfig {
-        applicationId "haqnawaz.org.recyclerview"
+        applicationId "anc.org.recyclerview"
         minSdk 21
         targetSdk 32
         versionCode 1

@@ -1,4 +1,4 @@
-package haqnawaz.org.recyclerview;
+package ans.org.quranapprecyclerview;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -6,11 +6,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import anc.org.recyclerview.R;
+import ans.org.quranapprecyclerview.Helper;
+
 public class MainActivity extends AppCompatActivity {
+
+
 
     List<Friend> friendsList = new ArrayList<>();
     RecyclerView recyclerView;
@@ -19,6 +25,13 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        Helper helper = new Helper();
+        try {
+            helper.readExcelFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 

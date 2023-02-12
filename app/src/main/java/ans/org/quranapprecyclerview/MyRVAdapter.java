@@ -1,4 +1,4 @@
-package haqnawaz.org.recyclerview;
+package ans.org.quranapprecyclerview;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +10,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
+
+import anc.org.recyclerview.R;
 
 class myRecyclerViewAdapter extends RecyclerView.Adapter<myRecyclerViewAdapter.MyVH> {
 

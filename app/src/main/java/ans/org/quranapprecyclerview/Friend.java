@@ -1,4 +1,4 @@
-package haqnawaz.org.recyclerview;
+package ans.org.quranapprecyclerview;
 
 public class Friend {
     private int id;
