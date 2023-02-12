@@ -8,7 +8,11 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
+
+import com.google.android.material.textfield.TextInputEditText;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -28,6 +32,15 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView.LayoutManager layoutManager;
     List<Ayah> ayahArrayList = new ArrayList<>();
     ImageButton githubButton;
+
+
+    Button searchByParaButton;
+    Button searchBySurahButton;
+
+    EditText ayahNumberIP;
+    EditText surahNumberIP;
+    EditText paraNumberIP;
+
 
     public void readExcelFile() throws IOException {
         BufferedReader bReader;
@@ -94,6 +107,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        // everything about recycler view
         recyclerView = findViewById(R.id.recylerViewAyahs);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(MainActivity.this);
@@ -101,5 +115,66 @@ public class MainActivity extends AppCompatActivity {
         adapter = new myRecyclerViewAdapter(ayahArrayList) ;
         recyclerView.setAdapter(adapter);
 
+        // everything about searching
+        searchByParaButton = findViewById(R.id.searchByParah);
+        searchBySurahButton = findViewById(R.id.searchBySurah);
+
+        ayahNumberIP = findViewById(R.id.ayahNumberIP);
+        surahNumberIP = findViewById(R.id.surahNumberIP);
+        paraNumberIP = findViewById(R.id.parahNumberIP);
+
+        // search by para button
+        searchByParaButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String paraNumber = paraNumberIP.getText().toString();
+                if (paraNumber.isEmpty()) {
+                    paraNumberIP.setError("Please enter a number");
+                    paraNumberIP.requestFocus();
+                    return;
+                }
+                int paraNumberInt = Integer.parseInt(paraNumber);
+                if (paraNumberInt < 1 || paraNumberInt > 30) {
+                    paraNumberIP.setError("Please enter a number between 1 and 30");
+                    paraNumberIP.requestFocus();
+                    return;
+                }
+                List<Ayah> ayahs = new ArrayList<>();
+                for (Ayah ayah : ayahArrayList) {
+                    if (ayah.page >= (paraNumberInt - 1) * 8 + 1 && ayah.page <= paraNumberInt * 8) {
+                        ayahs.add(ayah);
+                    }
+                }
+                adapter = new myRecyclerViewAdapter(ayahs);
+                recyclerView.setAdapter(adapter);
+            }
+        });
+
+        // search by surah button
+        searchBySurahButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String surahNumber = surahNumberIP.getText().toString();
+                if (surahNumber.isEmpty()) {
+                    surahNumberIP.setError("Please enter a number");
+                    surahNumberIP.requestFocus();
+                    return;
+                }
+                int surahNumberInt = Integer.parseInt(surahNumber);
+                if (surahNumberInt < 1 || surahNumberInt > 114) {
+                    surahNumberIP.setError("Please enter a number between 1 and 114");
+                    surahNumberIP.requestFocus();
+                    return;
+                }
+                List<Ayah> ayahs = new ArrayList<>();
+                for (Ayah ayah : ayahArrayList) {
+                    if (ayah.numberInSurah == surahNumberInt) {
+                        ayahs.add(ayah);
+                    }
+                }
+                adapter = new myRecyclerViewAdapter(ayahs);
+                recyclerView.setAdapter(adapter);
+            }
+        });
     }
 }
