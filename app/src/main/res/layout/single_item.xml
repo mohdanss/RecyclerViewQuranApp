@@ -10,15 +10,15 @@
 
     <TextView
         android:id="@+id/textViewArabicText"
-        android:layout_width="370dp"
-        android:layout_height="36dp"
+        android:layout_width="wrap_content"
+        android:layout_height="33dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
         android:text="ArabicText"
         android:textAlignment="viewEnd"
-        android:textColor="@color/purple_700"
-        android:textSize="30sp"
+        android:textColor="@color/white"
+        android:textSize="28sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -29,31 +29,30 @@
         android:layout_marginEnd="16dp"
         android:text="SurahName"
         android:textAlignment="viewEnd"
-        android:textColor="@color/design_default_color_error"
+        android:textColor="@color/teal_200"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewArabicText" />
 
     <View
         android:id="@+id/view"
-        android:layout_width="380dp"
+        android:layout_width="wrap_content"
         android:layout_height="3dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:background="@android:color/holo_red_dark"
+        android:background="@color/purple_700"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewSurahName" />
 
     <TextView
-        android:id="@+id/textViewSurahNumber"
+        android:id="@+id/textViewAyahNumber"
         android:layout_width="136dp"
         android:layout_height="28dp"
         android:layout_marginStart="16dp"
-        android:text="SurahNum"
+        android:text="AyahNumber"
         android:textAlignment="viewStart"
-        android:textColor="@android:color/holo_green_dark"
+        android:textColor="@color/purple_200"
         android:textColorHint="@android:color/holo_green_dark"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/textViewSurahName"

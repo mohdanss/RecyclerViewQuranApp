@@ -30,9 +30,13 @@ class myRecyclerViewAdapter extends RecyclerView.Adapter<myRecyclerViewAdapter.M
     @Override
     public void onBindViewHolder(@NonNull myRecyclerViewAdapter.MyVH holder, int position) {
         holder.data = ayahList.get(position);
-        holder.textViewArabicText.setText(holder.data.arabic_text);
-//        holder.textViewSurahName.setText(holder.data.surah_name);
-//        holder.textViewNumberInSurah.setText(holder.data.number);
+        // only show 50 characters
+        String arabicText = holder.data.arabic_text.length() > 60 ? holder.data.arabic_text.substring(0, 60) + "..." : holder.data.arabic_text;
+
+        holder.textViewArabicText.setText(arabicText);
+        String ayahNumber = "آیت " + holder.data.numberInSurah;
+        holder.textViewAyahNumber.setText(ayahNumber);
+        holder.textViewSurahName.setText(holder.data.surah_name);
     }
 
     @Override
@@ -43,14 +47,14 @@ class myRecyclerViewAdapter extends RecyclerView.Adapter<myRecyclerViewAdapter.M
 
     public class MyVH extends RecyclerView.ViewHolder {
         TextView textViewArabicText;
-//        TextView textViewSurahName;
-//        TextView textViewNumberInSurah;
+        TextView textViewSurahName;
+        TextView textViewAyahNumber;
         Ayah data;
         public MyVH(@NonNull View itemView) {
             super(itemView);
             textViewArabicText = itemView.findViewById(R.id.textViewArabicText);
-//            textViewSurahName = itemView.findViewById(R.id.textViewSurahName);
-//            textViewNumberInSurah = itemView.findViewById(R.id.textViewSurahNumber);
+            textViewSurahName = itemView.findViewById(R.id.textViewSurahName);
+            textViewAyahNumber = itemView.findViewById(R.id.textViewAyahNumber);
         }
     }
 }
