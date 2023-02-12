@@ -1,5 +1,6 @@
 package ans.org.quranapprecyclerview;
 
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -7,12 +8,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-
-import com.google.android.material.textfield.TextInputEditText;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -34,12 +33,11 @@ public class MainActivity extends AppCompatActivity {
     ImageButton githubButton;
 
 
-    Button searchByParaButton;
+    Button searchByAyahButton;
     Button searchBySurahButton;
 
     EditText ayahNumberIP;
     EditText surahNumberIP;
-    EditText paraNumberIP;
 
 
     public void readExcelFile() throws IOException {
@@ -99,12 +97,9 @@ public class MainActivity extends AppCompatActivity {
         githubButton.setImageResource(R.drawable.icons8_github);
 
         // add click listener to github button, that'll redirect to github website
-        githubButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/mohdanss/RecyclerViewQuranApp.git"));
-                startActivity(intent);
-            }
+        githubButton.setOnClickListener(v -> {
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/mohdanss/RecyclerViewQuranApp.git"));
+            startActivity(intent);
         });
 
         // everything about recycler view
@@ -116,65 +111,109 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
 
         // everything about searching
-        searchByParaButton = findViewById(R.id.searchByParah);
+        searchByAyahButton = findViewById(R.id.searchByAyah);
         searchBySurahButton = findViewById(R.id.searchBySurah);
 
         ayahNumberIP = findViewById(R.id.ayahNumberIP);
         surahNumberIP = findViewById(R.id.surahNumberIP);
-        paraNumberIP = findViewById(R.id.parahNumberIP);
 
-        // search by para button
-        searchByParaButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String paraNumber = paraNumberIP.getText().toString();
-                if (paraNumber.isEmpty()) {
-                    paraNumberIP.setError("Please enter a number");
-                    paraNumberIP.requestFocus();
-                    return;
-                }
-                int paraNumberInt = Integer.parseInt(paraNumber);
-                if (paraNumberInt < 1 || paraNumberInt > 30) {
-                    paraNumberIP.setError("Please enter a number between 1 and 30");
-                    paraNumberIP.requestFocus();
-                    return;
-                }
-                List<Ayah> ayahs = new ArrayList<>();
-                for (Ayah ayah : ayahArrayList) {
-                    if (ayah.page >= (paraNumberInt - 1) * 8 + 1 && ayah.page <= paraNumberInt * 8) {
-                        ayahs.add(ayah);
-                    }
-                }
-                adapter = new myRecyclerViewAdapter(ayahs);
+        // search by ayah button
+        searchByAyahButton.setOnClickListener(v -> {
+            // validate ayah number
+            String ayahNumber = ayahNumberIP.getText().toString();
+            if (ayahNumber.isEmpty()) {
+                ayahNumberIP.setError("Please enter a number");
+                ayahNumberIP.requestFocus();
+
+                // update the recycler view
+                adapter = new myRecyclerViewAdapter(ayahArrayList) ;
                 recyclerView.setAdapter(adapter);
+                recyclerView.scrollToPosition(0);
+                return;
             }
+            int ayahNumberInt = Integer.parseInt(ayahNumber);
+            if (ayahNumberInt < 1 || ayahNumberInt > 6236) {
+                ayahNumberIP.setError("Please enter a number between 1 and 6236");
+                ayahNumberIP.requestFocus();
+
+                // update the recycler view
+                adapter = new myRecyclerViewAdapter(ayahArrayList) ;
+                recyclerView.setAdapter(adapter);
+                recyclerView.scrollToPosition(0);
+
+                return;
+            }
+
+            // update the recycler view
+            adapter = new myRecyclerViewAdapter(ayahArrayList) ;
+            recyclerView.setAdapter(adapter);
+
+            recyclerView.scrollToPosition(ayahNumberInt - 1);
+
         });
 
+
         // search by surah button
-        searchBySurahButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String surahNumber = surahNumberIP.getText().toString();
-                if (surahNumber.isEmpty()) {
-                    surahNumberIP.setError("Please enter a number");
-                    surahNumberIP.requestFocus();
-                    return;
-                }
-                int surahNumberInt = Integer.parseInt(surahNumber);
-                if (surahNumberInt < 1 || surahNumberInt > 114) {
-                    surahNumberIP.setError("Please enter a number between 1 and 114");
-                    surahNumberIP.requestFocus();
-                    return;
-                }
-                List<Ayah> ayahs = new ArrayList<>();
-                for (Ayah ayah : ayahArrayList) {
-                    if (ayah.numberInSurah == surahNumberInt) {
-                        ayahs.add(ayah);
-                    }
-                }
-                adapter = new myRecyclerViewAdapter(ayahs);
+        searchBySurahButton.setOnClickListener(v -> {
+            // validate ayah number
+            String ayahNumber = ayahNumberIP.getText().toString();
+            if (ayahNumber.isEmpty()) {
+                ayahNumberIP.setError("Please enter a number");
+                ayahNumberIP.requestFocus();
+
+                // update the recycler view
+                adapter = new myRecyclerViewAdapter(ayahArrayList) ;
                 recyclerView.setAdapter(adapter);
+                recyclerView.scrollToPosition(0);
+                return;
             }
+            int ayahNumberInt = Integer.parseInt(ayahNumber);
+            if (ayahNumberInt < 1 || ayahNumberInt > 286) {
+                ayahNumberIP.setError("Please enter a number between 1 and 286");
+                ayahNumberIP.requestFocus();
+
+                // update the recycler view
+                adapter = new myRecyclerViewAdapter(ayahArrayList) ;
+                recyclerView.setAdapter(adapter);
+                recyclerView.scrollToPosition(0);
+
+                return;
+            }
+
+            // get the surah number
+            String surahNumber = surahNumberIP.getText().toString();
+            if (surahNumber.isEmpty()) {
+                surahNumberIP.setError("Please enter a number");
+                surahNumberIP.requestFocus();
+
+                // update the recycler view
+                adapter = new myRecyclerViewAdapter(ayahArrayList) ;
+                recyclerView.setAdapter(adapter);
+                recyclerView.scrollToPosition(0);
+                return;
+            }
+            int surahNumberInt = Integer.parseInt(surahNumber);
+            if (surahNumberInt < 1 || surahNumberInt > 114) {
+                surahNumberIP.setError("Please enter a number between 1 and 114");
+                surahNumberIP.requestFocus();
+
+                // update the recycler view
+                adapter = new myRecyclerViewAdapter(ayahArrayList) ;
+                recyclerView.setAdapter(adapter);
+                recyclerView.scrollToPosition(0);
+
+                return;
+            }
+
+            // scroll to the surah
+            int ayahNumberToScrollTo = 0;
+            for(int i = 0; i < ayahArrayList.size(); i++) {
+                if(ayahArrayList.get(i).surahNumber == surahNumberInt) {
+                    ayahNumberToScrollTo = i;
+                    break;
+                }
+            }
+            recyclerView.scrollToPosition(ayahNumberToScrollTo);
         });
     }
 }

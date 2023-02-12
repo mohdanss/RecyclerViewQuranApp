@@ -53,9 +53,10 @@ class myRecyclerViewAdapter extends RecyclerView.Adapter<myRecyclerViewAdapter.M
         String arabicText = holder.data.arabic_text.length() > 60 ? holder.data.arabic_text.substring(0, 60) + "..." : holder.data.arabic_text;
 
         holder.textViewArabicText.setText(arabicText);
-        String ayahNumber = "آیت " + holder.data.numberInSurah;
+
+        String ayahNumber = "آیت " + holder.data.numberInSurah + " (" + holder.data.number + ")";
         holder.textViewAyahNumber.setText(ayahNumber);
-        holder.textViewSurahName.setText(holder.data.surah_name);
+        holder.textViewSurahName.setText(holder.data.surah_name + " (" + holder.data.surahNumber + ")");
 
         // add click listener to holder item
         holder.itemView.setOnClickListener(new View.OnClickListener() {

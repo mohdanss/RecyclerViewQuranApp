@@ -4,7 +4,7 @@ public class Ayah {
     public int number;
     public String arabic_text;
     public int numberInSurah;
-    public int page;
+    public int surahNumber;
     public String surah_name;
     public String surah_name_english;
     public String surah_name_english_translation;
@@ -20,11 +20,11 @@ public class Ayah {
     public String pushto_translation;
     public String pushto_tafseer;
 
-    public Ayah(int number, String arabic_text, int numberInSurah, int page, String surah_name, String surah_name_english, String surah_name_english_translation, String revelationType, String urdu_translation, String urdu_tafseer, String english_translation, String english_tafseer, String sindhi_translation, String sindhi_tafseer, String hindi_translation, String hindi_tafseer, String pushto_translation, String pushto_tafseer) {
+    public Ayah(int number, String arabic_text, int numberInSurah, int surahNumber, String surah_name, String surah_name_english, String surah_name_english_translation, String revelationType, String urdu_translation, String urdu_tafseer, String english_translation, String english_tafseer, String sindhi_translation, String sindhi_tafseer, String hindi_translation, String hindi_tafseer, String pushto_translation, String pushto_tafseer) {
         this.number = number;
         this.arabic_text = arabic_text;
         this.numberInSurah = numberInSurah;
-        this.page = page;
+        this.surahNumber = surahNumber;
         this.surah_name = surah_name;
         this.surah_name_english = surah_name_english;
         this.surah_name_english_translation = surah_name_english_translation;
@@ -47,7 +47,7 @@ public class Ayah {
                 "number=" + number +
                 ", arabic_text='" + arabic_text + '\'' +
                 ", numberInSurah=" + numberInSurah +
-                ", page=" + page +
+                ", surahNumber=" + surahNumber +
                 ", surah_name='" + surah_name + '\'' +
                 ", surah_name_english='" + surah_name_english + '\'' +
                 ", surah_name_english_translation='" + surah_name_english_translation + '\'' +
