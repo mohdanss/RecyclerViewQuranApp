@@ -3,7 +3,6 @@ package ans.org.quranapprecyclerview;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,9 +13,9 @@ import java.util.List;
 
 class myRecyclerViewAdapter extends RecyclerView.Adapter<myRecyclerViewAdapter.MyVH> {
 
-    List<Friend> friendsList;
-    public myRecyclerViewAdapter(List<Friend> friendsList) {
-        this.friendsList = friendsList;
+    List<Ayah> ayahList;
+    public myRecyclerViewAdapter(List<Ayah> friendsList) {
+        this.ayahList = friendsList;
     }
 
     @NonNull
@@ -30,31 +29,28 @@ class myRecyclerViewAdapter extends RecyclerView.Adapter<myRecyclerViewAdapter.M
 
     @Override
     public void onBindViewHolder(@NonNull myRecyclerViewAdapter.MyVH holder, int position) {
-        holder.data=friendsList.get(position);
-        holder.textViewFriendName.setText(holder.data.getName());
-        holder.textViewdateFriend.setText(String.valueOf(holder.data.getDob()));
-        holder.imageViewFriend.setImageResource(holder.data.getImageID());
-        holder.textViewCity.setText(holder.data.getCity());
+        holder.data = ayahList.get(position);
+        holder.textViewArabicText.setText(holder.data.arabic_text);
+//        holder.textViewSurahName.setText(holder.data.surah_name);
+//        holder.textViewNumberInSurah.setText(holder.data.number);
     }
 
     @Override
     public int getItemCount() {
-        return friendsList.size();
+        return ayahList.size();
     }
 
 
     public class MyVH extends RecyclerView.ViewHolder {
-        ImageView imageViewFriend;
-        TextView textViewFriendName;
-        TextView textViewdateFriend;
-        TextView textViewCity;
-        Friend data;
+        TextView textViewArabicText;
+//        TextView textViewSurahName;
+//        TextView textViewNumberInSurah;
+        Ayah data;
         public MyVH(@NonNull View itemView) {
             super(itemView);
-            imageViewFriend = itemView.findViewById(R.id.imageViewFriendPicture);
-            textViewFriendName = itemView.findViewById(R.id.textViewFriendName);
-            textViewdateFriend = itemView.findViewById(R.id.textViewDate);
-            textViewCity = itemView.findViewById(R.id.textViewCity);
+            textViewArabicText = itemView.findViewById(R.id.textViewArabicText);
+//            textViewSurahName = itemView.findViewById(R.id.textViewSurahName);
+//            textViewNumberInSurah = itemView.findViewById(R.id.textViewSurahNumber);
         }
     }
 }
